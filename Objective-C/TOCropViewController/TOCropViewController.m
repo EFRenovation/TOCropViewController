@@ -118,6 +118,8 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
     
     BOOL circularMode = (self.croppingStyle == TOCropViewCroppingStyleCircular);
 
+    [self.toolbar setHidden:TRUE];
+    
     // Layout the views initially
     self.cropView.frame = [self frameForCropViewWithVerticalLayout:self.verticalLayout];
     self.toolbar.frame = [self frameForToolbarWithVerticalLayout:self.verticalLayout];
@@ -207,6 +209,9 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
     if (self.navigationController == nil) {
         [self.cropView setBackgroundImageViewHidden:NO animated:animated];
     }
+    
+    [self setAspectRatioPreset:TOCropViewControllerAspectRatioPreset4x3 animated:TRUE];
+    self.aspectRatioLockEnabled = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -313,10 +318,10 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
     if (!verticalLayout) {
         frame.origin.x = kTOCropViewControllerToolbarHeight + insets.left;
         frame.size.width = CGRectGetWidth(bounds) - frame.origin.x;
-		frame.size.height = CGRectGetHeight(bounds);
+		frame.size.height = CGRectGetHeight(bounds) * 0.8;
     }
     else { // Vertical layout
-        frame.size.height = CGRectGetHeight(bounds);
+        frame.size.height = CGRectGetHeight(bounds) * 0.8;
         frame.size.width = CGRectGetWidth(bounds);
 
         // Set Y and adjust for height
@@ -327,7 +332,7 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
             frame.size.height -= frame.origin.y;
         }
     }
-    
+    NSLog(@"%@", NSStringFromCGRect(frame));
     return frame;
 }
 
@@ -582,8 +587,8 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
     //Prepare the list that will be fed to the alert view/controller
     
     // Ratio titles according to the order of enum TOCropViewControllerAspectRatioPreset
-    NSArray<NSString *> *portraitRatioTitles = @[originalButtonTitle, squareButtonTitle, @"2:3", @"3:5", @"3:4", @"4:5", @"5:7", @"9:16"];
-    NSArray<NSString *> *landscapeRatioTitles = @[originalButtonTitle, squareButtonTitle, @"3:2", @"5:3", @"4:3", @"5:4", @"7:5", @"16:9"];
+    NSArray<NSString *> *portraitRatioTitles = @[originalButtonTitle, squareButtonTitle, @"2:3", @"3:5", @"3:4", @"4:3", @"4:5", @"5:7", @"9:16"];
+    NSArray<NSString *> *landscapeRatioTitles = @[originalButtonTitle, squareButtonTitle, @"3:2", @"5:3", @"4:3", @"3:4", @"5:4", @"7:5", @"16:9"];
 
     NSMutableArray *ratioValues = [NSMutableArray array];
     NSMutableArray *itemStrings = [NSMutableArray array];
@@ -651,6 +656,9 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
             break;
         case TOCropViewControllerAspectRatioPreset4x3:
             aspectRatio = CGSizeMake(4.0f, 3.0f);
+            break;
+        case TOCropViewControllerAspectRatioPreset3x4:
+            aspectRatio = CGSizeMake(3.0f, 4.0f);
             break;
         case TOCropViewControllerAspectRatioPreset5x4:
             aspectRatio = CGSizeMake(5.0f, 4.0f);
