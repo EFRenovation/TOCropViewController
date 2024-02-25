@@ -210,7 +210,12 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
         [self.cropView setBackgroundImageViewHidden:NO animated:animated];
     }
     
-    [self setAspectRatioPreset:TOCropViewControllerAspectRatioPreset4x3 animated:TRUE];
+    // 判断纵横比
+    if (_image.size.width >= _image.size.height) {
+        [self setAspectRatioPreset:TOCropViewControllerAspectRatioPreset3x4 animated:TRUE];
+    } else {
+        [self setAspectRatioPreset:TOCropViewControllerAspectRatioPreset4x3 animated:TRUE];
+    }
     self.aspectRatioLockEnabled = YES;
 }
 
