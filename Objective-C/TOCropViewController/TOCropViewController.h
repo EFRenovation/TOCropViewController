@@ -467,5 +467,15 @@
                                           setup:(nullable void (^)(void))setup
                                      completion:(nullable void (^)(void))completion NS_SWIFT_NAME(dismissAnimatedFrom(_:croppedImage:toView:toFrame:setup:completion:));
 
+- (CGRect)frameForToolbarWithVerticalLayout:(BOOL)verticalLayout;
+
+- (CGRect)frameForCropViewWithVerticalLayout:(BOOL)verticalLayout;
+
+- (CGRect)frameForTitleLabelWithSize:(CGSize)size verticalLayout:(BOOL)verticalLayout;
+
+- (void)adjustCropViewInsets;
+
+- (void)adjustToolbarInsets;
+
 @end
 
