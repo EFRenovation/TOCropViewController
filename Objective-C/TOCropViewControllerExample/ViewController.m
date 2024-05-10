@@ -27,8 +27,6 @@
 {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
     TOCropViewController *cropController = [[TOCropViewController alloc] initWithCroppingStyle:self.croppingStyle image:image];
-    cropController.cropView.cropViewPadding = 0;
-    cropController.cropView.cropRegionInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     cropController.delegate = self;
 
     // Uncomment this if you wish to provide extra instructions via a title label
